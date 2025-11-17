@@ -1,10 +1,4 @@
-// api/tiktok-followers.js
-// Debug-friendly lightweight TikTok scraper for a single channel.
-// - Adds CORS headers so you can call from the browser easily
-// - Adds server console logs and a `?debug=1` query that returns extra fields
-// - Returns { followers: number|null, debug?: {...} }
-
-const DEFAULT_CACHE_TTL = 60 * 1000; // 60s cache
+const DEFAULT_CACHE_TTL = 60 * 1000;
 const cache = new Map();
 
 const KEY_REGEX = /(followers?|follower_count|followerCount|follow_count|fan_count|fans|likes|subscribers|subscriber_count)/i;
@@ -58,7 +52,6 @@ function findFollowerDeep(obj, seen = new WeakSet()) {
         }
       }
     } catch (e) {
-      // ignore
     }
   }
 
@@ -88,7 +81,6 @@ function tryExtractFromMetaOgDescription(html) {
 }
 
 function tryExtractFromSigI(html) {
-  // <script id="SIGI_STATE">JSON</script>
   const sigiMatch = html.match(/<script[^>]*id=["']SIGI_STATE["'][^>]*>([\s\S]*?)<\/script>/i);
   if (sigiMatch && sigiMatch[1]) {
     try {
@@ -97,11 +89,8 @@ function tryExtractFromSigI(html) {
       const found = findFollowerDeep(parsed);
       if (found !== null) return found;
     } catch (e) {
-      // parse failed
     }
   }
-
-  // window['SIGI_STATE'] = {...};
   const winMatch = html.match(/window\[['"]SIGI_STATE['"]\]\s*=\s*({[\s\S]*?});/i);
   if (winMatch && winMatch[1]) {
     try {
@@ -184,7 +173,6 @@ export default async function handler(req, res) {
 
     if (debug) console.log(`[tiktok-followers] fetched ${html.length} chars.`);
 
-    // try heuristics
     let followers = null;
     let source = null;
 
@@ -208,7 +196,6 @@ export default async function handler(req, res) {
         fetchedChars: html.length,
         sourceDetected: source || null,
       };
-      // include short snippet for inspection
       result.debug.snippet = html.slice(0, 1200);
     }
 
