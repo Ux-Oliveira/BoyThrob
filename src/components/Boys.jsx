@@ -224,6 +224,17 @@ export default function Boys() {
           .meta { width: 100%; padding: 0; margin-top: 6px; display:block; text-align: center; }
           .meta .name { font-size: 18px; display:inline-block; transform:none !important; }
 
+          /* OVERWRITES: force center align for imageLeft/imageRight variants on mobile */
+          .boyItemAlt.imageRight .meta,
+          .boyItemAlt.imageLeft .meta {
+            justify-content: center;
+            text-align: center;
+          }
+          .boyItemAlt.imageRight .meta .name,
+          .boyItemAlt.imageLeft .meta .name {
+            text-align: center;
+          }
+
           /* Modal stacks vertically on mobile */
           .bt-inner { flex-direction: column; padding: 14px; gap: 12px; }
           .bt-text { order: 2; padding: 0; }
@@ -245,4 +256,3 @@ export default function Boys() {
     </section>
   );
 }
-
