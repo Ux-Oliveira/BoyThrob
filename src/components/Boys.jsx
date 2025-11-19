@@ -212,27 +212,47 @@ export default function Boys() {
           .boys .boysHeadline { font-size: 16px; }
           .boysGrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
-          /* stack vertically and center content on mobile so image sits above name */
+          /* stack vertically on mobile but keep desktop rules untouched outside this block */
           .boyItemAlt { flex-direction: column; align-items: center; gap: 8px; padding: 10px; }
+
+          /* center image wrapper and ensure image fits without top being cut */
           .thumbWrap { width: 100%; max-width: none; display:flex; justify-content:center; }
-          /* default mobile thumb: slightly smaller and use contain so tops aren't cut */
-          .thumb { width: 100%; height: auto; max-height: 200px; border-radius: 8px; object-fit: contain; object-position: center; }
+          /* make the 1.png images slightly smaller and use contain so heads aren't cropped */
+          .boyItemAlt[data-index="1"] .thumb,
+          .boyItemAlt[data-index="2"] .thumb,
+          .boyItemAlt[data-index="3"] .thumb {
+            width: 100%;
+            height: auto;
+            max-height: 180px; /* slightly smaller for 1.png images */
+            border-radius: 8px;
+            object-fit: contain;
+            object-position: center;
+          }
 
           /* keep Darshan (id=4) at the original visual size/cover so it remains perfect */
-          .boyItemAlt[data-index="4"] .thumb { object-fit: cover; max-height: 220px; height: 220px; }
+          .boyItemAlt[data-index="4"] .thumb {
+            object-fit: cover;
+            max-height: 220px;
+            height: 220px;
+            width: 100%;
+            border-radius: 8px;
+          }
 
+          /* move name under image and center it on mobile */
           .meta { width: 100%; padding: 0; margin-top: 6px; display:block; text-align: center; }
-          .meta .name { font-size: 18px; display:inline-block; transform:none !important; }
+          .meta .name { font-size: 18px; display:inline-block; transform:none !important; width:100%; text-align:center; }
 
-          /* OVERWRITES: force center align for imageLeft/imageRight variants on mobile */
+          /* override the desktop .imageRight/.imageLeft meta positioning on mobile */
           .boyItemAlt.imageRight .meta,
           .boyItemAlt.imageLeft .meta {
             justify-content: center;
             text-align: center;
+            padding-left: 0; /* ensure desktop left-padding doesn't apply */
           }
           .boyItemAlt.imageRight .meta .name,
           .boyItemAlt.imageLeft .meta .name {
             text-align: center;
+            transform: translateX(0) !important;
           }
 
           /* Modal stacks vertically on mobile */
@@ -248,9 +268,9 @@ export default function Boys() {
 
         /*individual name position tweaks*/
         #boy-name-1 { transform: translateX(0px); }
-        #boy-name-2 { transform: translateX(0px); }
+        #boy-name-2 { transform: translateX(-200px); }
         #boy-name-3 { transform: translateX(0px); }   
-        #boy-name-4 { transform: translateX(0px); }
+        #boy-name-4 { transform: translateX(-200px); }
 
       `}</style>
     </section>
