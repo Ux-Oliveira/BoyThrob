@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const boys = [
   {
@@ -39,17 +39,27 @@ export default function Boys() {
   const [modal, setModal] = useState(null); //this modal holds the boy object
   const [modalSide, setModalSide] = useState('right'); //thenn i decide which side the image sit
 
+  useEffect(() => {
+    // move DOM side-effect into effect so lint won't complain about modifying external values synchronously
+    if (modal) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev || '';
+      };
+    }
+    return undefined;
+  }, [modal]);
+
   function openModal(boy, index) {
     //if the index is even (0,2...) the image goes left and the modal image shows right
     const imageWasLeft = index % 2 === 0;
     setModalSide(imageWasLeft ? 'right' : 'left');
     setModal(boy);
-    if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     setModal(null);
-    if (typeof document !== 'undefined') document.body.style.overflow = '';
   }
 
   return (
@@ -201,10 +211,17 @@ export default function Boys() {
           .boys { padding: 18px 12px; }
           .boys .boysHeadline { font-size: 16px; }
           .boysGrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-          .boyItemAlt { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; }
-          .thumbWrap { width: 100%; max-width: none; }
-          .thumb { width: 100%; height: 220px; border-radius: 8px; }
-          .meta { width: 100%; padding: 0; margin-top: 6px; display:block; }
+
+          /* stack vertically and center content on mobile so image sits above name */
+          .boyItemAlt { flex-direction: column; align-items: center; gap: 8px; padding: 10px; }
+          .thumbWrap { width: 100%; max-width: none; display:flex; justify-content:center; }
+          /* default mobile thumb: slightly smaller and use contain so tops aren't cut */
+          .thumb { width: 100%; height: auto; max-height: 200px; border-radius: 8px; object-fit: contain; object-position: center; }
+
+          /* keep Darshan (id=4) at the original visual size/cover so it remains perfect */
+          .boyItemAlt[data-index="4"] .thumb { object-fit: cover; max-height: 220px; height: 220px; }
+
+          .meta { width: 100%; padding: 0; margin-top: 6px; display:block; text-align: center; }
           .meta .name { font-size: 18px; display:inline-block; transform:none !important; }
 
           /* Modal stacks vertically on mobile */
