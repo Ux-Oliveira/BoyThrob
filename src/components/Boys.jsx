@@ -237,11 +237,12 @@ export default function Boys() {
 
         /*individual name position tweaks*/
         #boy-name-1 { transform: translateX(0px); }
-        #boy-name-2 { transform: translateX(-200px); }
+        #boy-name-2 { transform: translateX(0px); }
         #boy-name-3 { transform: translateX(0px); }   
-        #boy-name-4 { transform: translateX(-200px); }
+        #boy-name-4 { transform: translateX(0px); }
 
       `}</style>
     </section>
   );
 }
+
