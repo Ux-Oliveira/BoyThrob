@@ -242,6 +242,21 @@ export default function Boys() {
           .meta { width: 100%; padding: 0; margin-top: 6px; display:block; text-align: center; }
           .meta .name { font-size: 18px; display:inline-block; transform:none !important; width:100%; text-align:center; }
 
+          /* specific fixes: override desktop translateX rules for id 2 and 4 on mobile,
+             make name full-width and centered beneath the image (no negative padding). */
+          .boyItemAlt[data-index="2"] .name,
+          .boyItemAlt[data-index="4"] .name,
+          #boy-name-2,
+          #boy-name-4 {
+            transform: translateX(0) !important;
+            -webkit-transform: translateX(0) !important;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0 !important;
+          }
+
           /* override the desktop .imageRight/.imageLeft meta positioning on mobile */
           .boyItemAlt.imageRight .meta,
           .boyItemAlt.imageLeft .meta {
@@ -252,8 +267,23 @@ export default function Boys() {
           .boyItemAlt.imageRight .meta .name,
           .boyItemAlt.imageLeft .meta .name {
             text-align: center;
+            padding: 9px;
             transform: translateX(0) !important;
           }
+ 
+           /*here! — replace this block to center names under images on mobile */
+.boyItemAlt,
+.boyItemAlt[data-index="2"] .name,
+.boyItemAlt[data-index="4"] .name {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: translateX(0) !important;
+  -webkit-transform: translateX(0) !important;
+}
+
 
           /* Modal stacks vertically on mobile */
           .bt-inner { flex-direction: column; padding: 14px; gap: 12px; }
