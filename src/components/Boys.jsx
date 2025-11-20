@@ -40,7 +40,6 @@ export default function Boys() {
   const [modalSide, setModalSide] = useState('right'); //thenn i decide which side the image sit
 
   useEffect(() => {
-    // move DOM side-effect into effect so lint won't complain about modifying external values synchronously
     if (modal) {
       const prev = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
@@ -152,7 +151,7 @@ export default function Boys() {
         .boyItemAlt:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
 
         .thumbWrap { flex: 0 0 auto; width: 34%; max-width: 220px; position: relative; display:flex; align-items:center; justify-content:center; }
-        /* enforce consistent visual size for all thumbs (match Anthony's size visually) */
+        /*enforce consistent visual size for all thumbs*/
         .thumb { width: 100%; height: 280px; border-radius: 12px; object-fit: cover; display:block; }
 
         .meta { flex: 1 1 auto; display:flex; align-items:center; justify-content:flex-start; padding: 50 12px; padding-left: 362px; }
@@ -166,7 +165,6 @@ export default function Boys() {
 
         @media (min-width: 820px) {
           .boysGrid { grid-template-columns: 1fr; gap: 18px; }
-          /* Make items taller */
           .boyItemAlt { padding: 18px; }
           .thumbWrap { width: 36%; max-width: 320px; }
           .meta .name { font-size: 26px; }
@@ -201,7 +199,6 @@ export default function Boys() {
         .bt-imageWrap { flex: 1 1 52%; display:flex; align-items:center; justify-content:center; }
         .bt-big { width: 100%; height: auto; max-height: 520px; object-fit: cover; border-radius: 10px; }
 
-        /* When modalSide is imgRight -> image sits on right (already default order). If imgLeft we flip row */
         .bt-card.imgLeft .bt-inner { flex-direction: row-reverse; }
         .bt-card.imgLeft .bt-text { text-align: right; }
         .bt-card.imgLeft .bt-actions { justify-content: flex-end; }
@@ -212,12 +209,11 @@ export default function Boys() {
           .boys .boysHeadline { font-size: 16px; }
           .boysGrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
-          /* stack vertically on mobile but keep desktop rules untouched outside this block */
+          /*vertical stack*/
           .boyItemAlt { flex-direction: column; align-items: center; gap: 8px; padding: 10px; }
 
-          /* center image wrapper and ensure image fits without top being cut */
+          /*centering images in the wrapper*/
           .thumbWrap { width: 100%; max-width: none; display:flex; justify-content:center; }
-          /* make the 1.png images slightly smaller and use contain so heads aren't cropped */
           .boyItemAlt[data-index="1"] .thumb,
           .boyItemAlt[data-index="2"] .thumb,
           .boyItemAlt[data-index="3"] .thumb {
@@ -229,7 +225,6 @@ export default function Boys() {
             object-position: center;
           }
 
-          /* keep Darshan (id=4) at the original visual size/cover so it remains perfect */
           .boyItemAlt[data-index="4"] .thumb {
             object-fit: cover;
             max-height: 220px;
@@ -238,12 +233,11 @@ export default function Boys() {
             border-radius: 8px;
           }
 
-          /* move name under image and center it on mobile */
+          /*here im moving name under image and centering it on mobile*/
           .meta { width: 100%; padding: 0; margin-top: 6px; display:block; text-align: center; }
           .meta .name { font-size: 18px; display:inline-block; transform:none !important; width:100%; text-align:center; }
 
-          /* specific fixes: override desktop translateX rules for id 2 and 4 on mobile,
-             make name full-width and centered beneath the image (no negative padding). */
+      
           .boyItemAlt[data-index="2"] .name,
           .boyItemAlt[data-index="4"] .name,
           #boy-name-2,
@@ -257,7 +251,7 @@ export default function Boys() {
             padding: 0 !important;
           }
 
-          /* override the desktop .imageRight/.imageLeft meta positioning on mobile */
+          
           .boyItemAlt.imageRight .meta,
           .boyItemAlt.imageLeft .meta {
             justify-content: center;
@@ -271,7 +265,7 @@ export default function Boys() {
             transform: translateX(0) !important;
           }
  
-           /*here! — replace this block to center names under images on mobile */
+           
 .boyItemAlt,
 .boyItemAlt[data-index="2"] .name,
 .boyItemAlt[data-index="4"] .name {
@@ -285,7 +279,7 @@ export default function Boys() {
 }
 
 
-          /* Modal stacks vertically on mobile */
+          
           .bt-inner { flex-direction: column; padding: 14px; gap: 12px; }
           .bt-text { order: 2; padding: 0; }
           .bt-imageWrap { order: 1; width: 100%; display:flex; }
@@ -306,3 +300,4 @@ export default function Boys() {
     </section>
   );
 }
+
