@@ -36,7 +36,7 @@ export default function Mission() {
             {isLoading ? (
               <div className="followers loading">Loading…</div>
             ) : hasError ? (
-              //very visible error bo to show us if the data is not being fetched
+              //very visible error bar to show up if the data is not being fetched
               <div className="followers errorBox">
                 <div className="errTitle">Error</div>
                 <div className="errMsg">{noteText || 'Unable to fetch followers'}</div>
@@ -187,3 +187,4 @@ export default function Mission() {
     </section>
   );
 }
+
